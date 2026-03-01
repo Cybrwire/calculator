@@ -1,0 +1,96 @@
+/* * * * * * * * * * * * * 
+       CSS RESET
+ * * * * * * * * * * * * */
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ol,
+ul {
+ list-style: none;
+}
+
+img,
+svg,
+video,
+canvas,
+picture {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+select,
+textarea {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+  overflow-wrap: break-word;
+}
+
+/* * * * * * * * * * * * 
+    Calculator
+* * * * * * * * * * * */
+
+.calculator-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+}
+.calculator-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: auto;
+    background-color: grey;
+    padding: 1rem;
+}
+.input{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    background-color: whitesmoke;
+
+}
+.input button{
+  font-size: 2rem;
+  font-family: sans-serif;
+  width: 2.5rem;
+  border: black 1.5px solid;
+  border-radius: .25rem;
+  align-self: center;
+  justify-self: center;
+}
+
+.numberpad{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;   
+}
+.operations{
+  display: grid;
+  
+}
+
+
+
+
