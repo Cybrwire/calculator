@@ -4,13 +4,16 @@ var currentState = "fresh";
 
 input.addEventListener('click',(event) => {
   console.log('Target:', event.target); 
-  let key = event.target;
-    if (currentState === "fresh" && key.parentElement.classList.contains("numberpad")){
-      operant1 = key.textContent;
-      currentState = "entering_1st_operant";
-    }
-    else if (currentState === "entering_1st_operant"){
-      
+  let keyPress;
+  if (event.target.classList.contains("digit")) {key = "digit"}; 
+  elseif (event.target.classList.contains("operator")) {key = "operator"}; 
+    switch (){
+      case digit:
+        if (currentState == "fresh"){
+
+        }
+
+
     }
     console.log("State: ", currentState);
 });
