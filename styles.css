@@ -64,6 +64,11 @@ span {
     background-color: grey;
     padding: 1rem;
 }
+.calculator-display-screen{
+  resize: none;
+  text-align: right;
+  width: fit-content;
+}
 .input{
   display: flex;
   justify-items: center;
