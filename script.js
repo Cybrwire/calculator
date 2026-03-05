@@ -1,9 +1,8 @@
-const input = document.querySelector(".input");
+const input                   = document.querySelector(".input");
 const calculatorDisplayScreen = document.querySelector(".calculator-display-screen");
+var currentState              = "fresh"; //initial state
 var operand1 = operand2 = operator = result = " ";
-var currentState = "fresh"; 
 
-calculatorDisplayScreen.textContent = result;
 
 input.addEventListener('click',(event) => {
   console.log('Target:', event.target); 
@@ -44,8 +43,8 @@ input.addEventListener('click',(event) => {
               }
             
           } else if (currentState == "results_shown"){
-            operand1 = result;
-            operator = key.textContent;
+            operand1     = result;
+            operator     = key.textContent;
             currentState = "entering_OP2";
           }
         } else if (key.textContent == "="){
@@ -56,23 +55,23 @@ input.addEventListener('click',(event) => {
           currentState = "results_shown";
         } else if (key.textContent == "C"){
           //reset all
+          operand1 = operand2 = operator = result = " ";
         }
           
         break;
       default: console.warn("unrecognized key type");
     }
     updateDisplay();
-    console.log("State: ", currentState);
+    console.log("State: "    , currentState);
     console.log("Operand 1: ", operand1);
-    console.log("Operator: ", operator);
+    console.log("Operator: " , operator);
     console.log("Operand 2: ", operand2);
 
     
 });
 
 function updateDisplay(){
-  calculatorDisplayScreen.textContent = `${operand1} ${operator} ${operand2} 
-  = ${result}`;
+  calculatorDisplayScreen.textContent = `${operand1} ${operator} ${operand2} = ${result}`;
 }
 function calculate(_a,_b,op){
   let a = Number(_a);
