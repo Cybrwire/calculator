@@ -31,22 +31,29 @@ input.addEventListener('click',(event) => {
             operator     = key.textContent;
             currentState = "operator_entered";
           } else if (currentState == "entering_OP2"){
-            if (operand2 ===" "){
-              operator     = key.textContent;
-              currentState = "operator_entered";
-            } else{
-              calculate(operand1, operand2, operator);
-              operator     = key.textContent;
-              operand1     = result;
-              operand2     = result = " ";
-              currentState = "entering_OP2";
-            }
+              if (operand2 ===" "){
+                operator     = key.textContent;
+                currentState = "operator_entered";
+              } else{
+                calculate(operand1, operand2, operator);
+                operator     = key.textContent;
+                operand1     = result;
+                operand2     = " ";
+                result       = " ";
+                currentState = "entering_OP2";
+              }
             
           } else if (currentState == "results_shown"){
-            //set OP1 = OP2, set operator, then state becomes entering_OP2
+            operand1 = result;
+            operator = key.textContent;
+            currentState = "entering_OP2";
           }
         } else if (key.textContent == "="){
-          //calculate
+          calculate(operand1, operand2, operator);
+          operator     = " ";
+          operand1     = " ";
+          operand2     = " "
+          currentState = "results_shown";
         } else if (key.textContent == "C"){
           //reset all
         }
@@ -64,7 +71,8 @@ input.addEventListener('click',(event) => {
 });
 
 function updateDisplay(){
-  calculatorDisplayScreen.textContent = `${operand1} ${operator} ${operand2} = ${result}`;
+  calculatorDisplayScreen.textContent = `${operand1} ${operator} ${operand2} 
+  = ${result}`;
 }
 function calculate(_a,_b,op){
   let a = Number(_a);
