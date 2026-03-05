@@ -30,7 +30,7 @@ input.addEventListener('click',(event) => {
             operator     = key.textContent;
             currentState = "operator_entered";
           } else if (currentState == "entering_OP2"){
-              if (operand2 ===" "){
+              if (operand2 === " "){
                 operator     = key.textContent;
                 currentState = "operator_entered";
               } else{
@@ -54,8 +54,14 @@ input.addEventListener('click',(event) => {
           operand2     = " "
           currentState = "results_shown";
         } else if (key.textContent == "C"){
-          //reset all
-          operand1 = operand2 = operator = result = " ";
+            if(currentState == "entering_OP1" || currentState == "operator_entered" || currentState == "results_shown"){
+              operand1 = operand2 = operator = result = " ";
+              currentState = "fresh";
+            } else if(currentState = "entering_OP2"){
+              operand2 = " ";
+              currentState = "operator_entered";
+            }
+          
         }
           
         break;
