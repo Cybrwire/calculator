@@ -9,13 +9,14 @@ input.addEventListener('click',(event) => {
   let inputType; // digit or operator
   let key = event.target; // button on the calculator (1,2,3,C,.,+,=)
 
-  if      (key.classList.contains("digit"))    {inputType = "digit"}
-  else if (key.classList.contains("operator")) {inputType = "operator"}
-  else    {inputType == "unknown"};
+  if      (key.classList.contains("digit"))    {inputType  = "digit"}
+  else if (key.classList.contains("operator")) {inputType  = "operator"}
+  else                                         {inputType == "unknown"};
     switch (inputType){
       case "digit":
-        if (currentState == "fresh" || currentState == "result_shown") {
+        if (currentState == "fresh" || currentState == "results_shown") {
           operand1    += key.textContent;
+          result       = " ";
           currentState = "entering_OP1";
         } else if (currentState == "entering_OP1"){
           operand1    += key.textContent;
@@ -26,15 +27,16 @@ input.addEventListener('click',(event) => {
         break;
       case "operator":
         if (key.textContent != "=" && key.textContent != "C"){
-          if (currentState == "entering_OP1" || currentState == "operator_entered"){
+          if(currentState == "entering_OP1" || currentState == "operator_entered"){
             operator     = key.textContent;
             currentState = "operator_entered";
-          } else if (currentState == "entering_OP2"){
+          }
+          else if (currentState == "entering_OP2"){
               if (operand2 ===" "){
                 operator     = key.textContent;
                 currentState = "operator_entered";
               } else{
-                calculate(operand1, operand2, operator);
+                operate(operand1, operand2, operator);
                 operator     = key.textContent;
                 operand1     = result;
                 operand2     = " ";
@@ -44,18 +46,30 @@ input.addEventListener('click',(event) => {
             
           } else if (currentState == "results_shown"){
             operand1     = result;
+            result       = " ";
             operator     = key.textContent;
             currentState = "entering_OP2";
           }
         } else if (key.textContent == "="){
-          calculate(operand1, operand2, operator);
-          operator     = " ";
-          operand1     = " ";
-          operand2     = " "
-          currentState = "results_shown";
+          if(currentState == "entering_OP2"){ 
+              operator     = " ";
+              operand1     = " ";
+              operand2     = " ";
+              result       = "You a wise guy, eh?";
+              currentState = "results_shown";
+          } else {
+            operate(operand1, operand2, operator);
+            operator     = " ";
+            operand1     = " ";
+            operand2     = " ";
+            currentState = "results_shown";
+
+            
+          }
         } else if (key.textContent == "C"){
           //reset all
           operand1 = operand2 = operator = result = " ";
+          currentState = "fresh";
         }
           
         break;
@@ -66,14 +80,19 @@ input.addEventListener('click',(event) => {
     console.log("Operand 1: ", operand1);
     console.log("Operator: " , operator);
     console.log("Operand 2: ", operand2);
+    console.log("Result: "   , result);
+
 
     
 });
 
 function updateDisplay(){
-  calculatorDisplayScreen.textContent = `${operand1} ${operator} ${operand2} = ${result}`;
+  calculatorDisplayScreen.textContent = `${operand1} ${operator} ${operand2}`;
+  if (result !== " ") {
+    calculatorDisplayScreen.textContent += `${result}`;
+  }
 }
-function calculate(_a,_b,op){
+function operate(_a,_b,op){
   let a = Number(_a);
   let b = Number(_b);
 
