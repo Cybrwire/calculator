@@ -7,84 +7,76 @@ var operand1 = operand2 = operator = result = " ";
 input.addEventListener('click',(event) => {
   console.log('Target:', event.target); 
   let inputType; // digit or operator
-  let key = event.target; // button on the calculator (1,2,3,C,.,+,=)
+  let key = event.target.textContent; // button on the calculator (1,2,3,C,.,+,=)
 
-  if      (key.classList.contains("digit"))    {inputType  = "digit"}
-  else if (key.classList.contains("operator")) {inputType  = "operator"}
+  if      (event.target.classList.contains("digit"))    {inputType  = "digit"}
+  else if (event.target.classList.contains("operator")) {inputType  = "operator"}
   else                                         {inputType == "unknown"};
-    switch (inputType){
-      case "digit":
-        if (currentState == "fresh" || currentState == "results_shown") {
-          operand1    += key.textContent;
-          result       = " ";
-          currentState = "entering_OP1";
-        } else if (currentState == "entering_OP1"){
-          operand1    += key.textContent;
-        } else if (currentState == "operator_entered" || currentState == "entering_OP2"){
-          operand2    += key.textContent;
-          currentState = "entering_OP2";
-        }
-        break;
-      case "operator":
-        if (key.textContent != "=" && key.textContent != "C"){
-          if(currentState == "entering_OP1" || currentState == "operator_entered"){
-            operator     = key.textContent;
-            currentState = "operator_entered";
-          } else if (currentState == "entering_OP2"){
-              if (operand2 === " "){
-                operator     = key.textContent;
-                currentState = "operator_entered";
-              } else{
-                operate(operand1, operand2, operator);
-                operator     = key.textContent;
-                operand1     = result;
-                operand2     = " ";
-                result       = " ";
-                currentState = "entering_OP2";
-              }
-            
-          } else if (currentState == "results_shown"){
-            operand1     = result;
-            result       = " ";
-            operator     = key.textContent;
-            currentState = "entering_OP2";
-          }
-        } else if (key.textContent == "="){
-          if(currentState == "entering_OP2"){ 
-              operator     = " ";
-              operand1     = " ";
-              operand2     = " ";
-              result       = "You a wise guy, eh?";
-              currentState = "results_shown";
-          } else {
-            operate(operand1, operand2, operator);
-            operator     = " ";
-            operand1     = " ";
-            operand2     = " ";
-            currentState = "results_shown";
-
-            
-          }
-        } else if (key.textContent == "C"){
-            if(currentState == "entering_OP1" || currentState == "operator_entered" || currentState == "results_shown"){
-              operand1 = operand2 = operator = result = " ";
-              currentState = "fresh";
-            } else if(currentState = "entering_OP2"){
-              operand2 = " ";
+  switch (inputType){
+    case "digit":
+      if (currentState == "fresh" || currentState == "results_shown") {
+        operand1    += key;
+        result       = " ";
+        currentState = "entering_OP1";
+      } else if (currentState == "entering_OP1"){
+        operand1    += key;
+      } else if (currentState == "operator_entered" || currentState == "entering_OP2"){
+        operand2    += key;
+        currentState = "entering_OP2";
+      }
+      break;
+    case "operator":
+      if (key != "=" && key != "C"){
+        if(currentState == "entering_OP1" || currentState == "operator_entered"){
+          operator     = key;
+          currentState = "operator_entered";
+        } else if (currentState == "entering_OP2"){
+            if (operand2 === " "){
+              operator     = key;
               currentState = "operator_entered";
+            } else{
+              operate(operand1, operand2, operator);
+              operator     = key;
+              operand1     = result;
+              operand2     = " ";
+              result       = " ";
+              currentState = "entering_OP2";
             }
           
+        } else if (currentState == "results_shown"){
+          operand1     = result;
+          result       = " ";
+          operator     = key;
+          currentState = "entering_OP2";
         }
-          
-        break;
-      default: console.warn("unrecognized key type");
-    }
-    updateDisplay();
-    console.log("State: "    , currentState);
-    console.log("Operand 1: ", operand1);
-    console.log("Operator: " , operator);
-    console.log("Operand 2: ", operand2);
-    console.log("Result: "   , result);
+      } else if (key == "="){
+        if(currentState == "entering_OP2"){
+          operate(operand1, operand2, operator);
+          operator     = " ";
+          operand1     = " ";
+          operand2     = " ";
+          currentState = "results_shown";          
+        }
+      } else if (key == "C"){
+          if(currentState == "entering_OP1" || currentState == "operator_entered" || currentState == "results_shown"){
+            operand1 = operand2 = operator = result = " ";
+            currentState = "fresh";
+          } else if(currentState = "entering_OP2"){
+            operand2 = " ";
+            currentState = "operator_entered";
+          }
+        
+      }
+        
+      break;
+    default: console.warn("unrecognized key type");
+  }
+  updateDisplay();
+  console.log("State: "    , currentState);
+  console.log("Operand 1: ", operand1);
+  console.log("Operator: " , operator);
+  console.log("Operand 2: ", operand2);
+  console.log("Result: "   , result);
 
 
     
@@ -114,7 +106,9 @@ function operate(_a,_b,op){
       result = division(a,b);
       break;
   }
-    
+    if (!isFinite(result)){
+      result = "A wise guy, eh?"
+    }
 }
 function add(a,b){
   return a + b;
