@@ -11,7 +11,7 @@ input.addEventListener('click',(event) => {
 
   if      (event.target.classList.contains("digit"))    {inputType  = "digit"}
   else if (event.target.classList.contains("operator")) {inputType  = "operator"}
-  else                                         {inputType == "unknown"};
+  else                                                  {inputType == "unknown"};
   switch (inputType){
     case "digit":
       if (currentState == "fresh" || currentState == "results_shown") {
@@ -36,18 +36,27 @@ input.addEventListener('click',(event) => {
               currentState = "operator_entered";
             } else{
               operate(operand1, operand2, operator);
-              operator     = key;
-              operand1     = result;
-              operand2     = " ";
-              result       = " ";
-              currentState = "entering_OP2";
+              if (operand2 != 0) {
+                operator     = key;
+                operand1     = result;
+                operand2     = " ";
+                result       = " ";
+                currentState = "entering_OP2";
+              } else {
+                operand1 = operand2 = operator = " ";
+                currentState = "results_shown";
+              }
+              
             }
           
         } else if (currentState == "results_shown"){
-          operand1     = result;
-          result       = " ";
-          operator     = key;
-          currentState = "entering_OP2";
+          if(result !== "A wise guy, eh?"){
+            operand1     = result;
+            result       = " ";
+            operator     = key;
+            currentState = "entering_OP2";
+          } 
+          
         }
       } else if (key == "="){
         if(currentState == "entering_OP2"){
@@ -103,12 +112,14 @@ function operate(_a,_b,op){
       result = multiply(a,b);
       break;
     case "/":
-      result = division(a,b);
-      break;
+      if (b == 0){
+        result = "A wise guy, eh?"
+        break;
+      } else {
+        result = division(a,b);
+        break;
+      }
   }
-    if (!isFinite(result)){
-      result = "A wise guy, eh?"
-    }
 }
 function add(a,b){
   return a + b;

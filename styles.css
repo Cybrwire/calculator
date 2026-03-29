@@ -52,6 +52,14 @@ body{
 }
 
 /* * * * * * * * * * * * 
+    Font
+* * * * * * * * * * * */
+.share-tech-mono-regular {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+/* * * * * * * * * * * * 
     Calculator
 * * * * * * * * * * * */
 
@@ -69,11 +77,18 @@ body{
     width: auto;
     background-color: grey;
     padding: 1rem;
+    gap: 1rem;
 }
 .calculator-display-screen{
-  resize: none;
-  text-align: right;
-  width: fit-content;
+  height: 2rem;
+  width: 60%;
+  background-color: whitesmoke;
+  font-size: 1.3rem;
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+  padding: 3%;
+  text-align: center;
 }
 .input{
   display: flex;
@@ -85,7 +100,9 @@ body{
 }
 .input button{
   font-size: 2rem;
-  font-family: sans-serif;
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
   width: 2.5rem;
   border: black 1.5px solid;
   border-radius: .25rem;
