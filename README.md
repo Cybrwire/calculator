@@ -1,4 +1,10 @@
-# JavaScript Calculator
+# JavaScript Calculator (state) 
 
-## An implementation of a calculator using a finite state machine (state-driven logic) to manage input handling
+
+## What is this?
+A calculator using a finite state machine (state-driven logic) to manage input handling
+
+## Reflections
+I thought the state idea would be interesting but I think it is too complex for a simple calculator. 
+
 
