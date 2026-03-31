@@ -1,5 +1,6 @@
 const input                   = document.querySelector(".input");
 const calculatorDisplayScreen = document.querySelector(".calculator-display-screen");
+const maxOperandLength        = 8;
 var currentState              = "fresh"; //initial state
 var operand1 = operand2 = operator = result = " ";
 
@@ -19,10 +20,16 @@ input.addEventListener('click',(event) => {
         result       = " ";
         currentState = "entering_OP1";
       } else if (currentState == "entering_OP1"){
-        operand1    += key;
+        if (operand1.length <=maxOperandLength){
+          operand1    += key;
+          
+        }   
       } else if (currentState == "operator_entered" || currentState == "entering_OP2"){
-        operand2    += key;
-        currentState = "entering_OP2";
+        if (operand2.length <= maxOperandLength){
+          operand2    += key;
+          currentState = "entering_OP2";
+        } 
+        
       }
       break;
     case "operator":

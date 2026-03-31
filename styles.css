@@ -81,14 +81,16 @@ body{
 }
 .calculator-display-screen{
   height: 2rem;
-  width: 60%;
+  width: fit-content;
+  min-width: 60%;
+  max-width: 100%;
   background-color: whitesmoke;
   font-size: 1.3rem;
   font-family: "Share Tech Mono", monospace;
   font-weight: 400;
   font-style: normal;
-  padding: 3%;
-  text-align: center;
+  text-align: center; 
+  padding-top: 2%;
 }
 .input{
   display: flex;
