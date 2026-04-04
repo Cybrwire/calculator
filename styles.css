@@ -50,7 +50,12 @@ span {
 body{
   background-color: rgb(53, 0, 0);
 }
-
+h1{
+  color: white;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 3rem;
+  padding: .5rem;
+}
 /* * * * * * * * * * * * 
     Font
 * * * * * * * * * * * */
